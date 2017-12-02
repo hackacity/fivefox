@@ -9,16 +9,17 @@ declare var google;
 })
 export class MapaComponent implements OnInit {
 
-    Map : any = {};
+    map: any = {};
 
     constructor() { }
 
     ngOnInit() {
 
-        new google.maps.Map(document.getElementById('map'), {
-            zoom: 4
-          });
-        
+        this.map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: {lat: -16, lng: -68}
+        });
+
     }
 
 }
