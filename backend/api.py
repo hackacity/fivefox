@@ -1,8 +1,13 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
 
+import nltk
+from flask_cors import CORS
+
+
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 TODOS = {
     'todo1': {'task': 'build an API'},
