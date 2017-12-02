@@ -1,0 +1,34 @@
+{
+  "name": "hackacity",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js --progress"
+  },
+  "author": "Mateus Gabi <mateusgabimoreira@gmail.com>",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.7.1",
+    "sass-loader": "^6.0.6",
+    "uglifyjs-webpack-plugin": "^1.1.0",
+    "webpack": "^3.8.1",
+    "webpack-dashboard": "^1.0.2",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "extract-text-webpack-plugin": "^3.0.2",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  }
+}
