@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
 
+import nltk
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -71,6 +73,7 @@ class Incidentes(Resource):
 
 api.add_resource(TodoList, '/todos')
 api.add_resource(Todo, '/todos/<todo_id>')
+@crossdomain(origin='*')
 api.add_resource(Incidentes, '/incidentes')
 
 
