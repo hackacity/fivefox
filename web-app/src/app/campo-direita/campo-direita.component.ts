@@ -44,8 +44,6 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
 
             this.api.getBOs(pos, config.raio).subscribe(locations => {
 
-
-                console.log(locations);
                 this.total = locations.length;
                 this.furto = locations.filter(l => l.tipo == "furto").length;
                 this.roubo = locations.filter(l => l.tipo == "roubo").length;
@@ -62,8 +60,15 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
 
                 this.horas_crimes = _horas;
 
+                console.log(locations);
+
+
+                let menino = locations.filter(l => l.genero == "MASCULINO").length;
+                let menina = locations.filter(l => l.genero == "FEMININO").length;
+                let indefinido = locations.length - menino - menina;
 
                 this.setGraphicBar();
+                this.setDonuttGraphic(menino, menina, indefinido);
             });
         });
 
@@ -113,6 +118,27 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
             // Convert the Classic options to Material options.
             chart.draw(data, google.charts.Bar.convertOptions(options));
         });
+    }
+
+    setDonuttGraphic(menino, menina, indefinido) {
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Masculino', menino],
+                ['Feminino', menina],
+                ['Não declarado', indefinido],
+            ]);
+
+            var options = {
+                title: 'Gênero das Vítimas',
+                pieHole: 1,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
+        }
     }
 
 }

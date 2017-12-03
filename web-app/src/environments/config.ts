@@ -1,3 +1,3 @@
 export const config = {
-    raio: 1
+    raio: 3
 };
