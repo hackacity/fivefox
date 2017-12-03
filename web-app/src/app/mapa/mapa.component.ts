@@ -23,13 +23,24 @@ export class MapaComponent implements OnInit {
 
         this.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
-            center: { lat: -28.024, lng: 140.887 }
+            center: { lat: -28.024, lng: 140.887 },
+            disableDefaultUI: true
         });
 
         this.setLocationOnMap();
 
         
         this.api.getIncidentes().subscribe(locations => this.setIncidentesOnMap(locations.incidentes));
+
+        this.map.addListener('click', function(e) {
+
+            let marker = new google.maps.Marker({
+                position: e.latLng,
+                map: this.map
+            });
+            
+            this.map.setCenter(marker.getPosition());
+          });
 
     }
 
