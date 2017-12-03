@@ -25,4 +25,13 @@ export class APIService {
 
     }
 
+    getInfo() : Observable<any> {
+        let uri = this.URI_BASE + 'info/total';
+
+        return this.http
+                .get(uri)
+                .map(res => res.json())
+                .catch(erro => Observable.throw(erro.json().error || 'Server error'))
+    }
+
 }
