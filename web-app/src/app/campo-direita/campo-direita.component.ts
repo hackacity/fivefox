@@ -103,8 +103,8 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
                 width: 335,
                 legend: { position: 'none' },
                 chart: {
-                    title: 'Horário de Funcionamento',
-                    subtitle: 'da criminalidade'
+                    title: 'Horário dos crimes',
+                    subtitle: 'na regição central de Campo Grande'
                 },
                 axes: {
                     x: {

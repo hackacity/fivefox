@@ -11,6 +11,7 @@ describe('CampoDireitaComponent', () => {
       declarations: [ CampoDireitaComponent ]
     })
     .compileComponents();
+    
   }));
 
   beforeEach(() => {

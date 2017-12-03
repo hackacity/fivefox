@@ -10,7 +10,7 @@ import { APIService } from './api.service';
 })
 export class AppComponent implements AfterViewInit {
 
-    title = 'Safe.ly';
+    title = 'Hands Down';
 
     constructor(private service : APIService) {}
 
