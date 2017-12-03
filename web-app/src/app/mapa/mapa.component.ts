@@ -1,3 +1,4 @@
+import { config } from './../../environments/config';
 import { BrowserService } from './../browser.service';
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'app/api.service';
@@ -71,7 +72,7 @@ export class MapaComponent implements OnInit {
 
             // get and set markers
 
-            this.api.getBOs(pos, 1.5).subscribe(locations => {
+            this.api.getBOs(pos, config.raio).subscribe(locations => {
                 this.originais = locations;
                 this.setIncidentesOnMap(locations);
             });

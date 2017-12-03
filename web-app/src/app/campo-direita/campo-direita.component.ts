@@ -3,6 +3,7 @@ import { APIService } from 'app/api.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as __ from 'lodash';
 import { BrowserService } from 'app/browser.service';
+import { config } from 'environments/config';
 
 declare var google;
 
@@ -46,7 +47,7 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
                 lng: latlng.longitude
             };
 
-            this.api.getBOs(pos, 1.5).subscribe(locations => {
+            this.api.getBOs(pos, config.raio).subscribe(locations => {
                 let horas = locations.map(o => o.hora);
                 horas = __.groupBy(horas, Math.floor);
 
