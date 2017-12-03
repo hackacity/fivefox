@@ -1,3 +1,4 @@
+import { BrowserService } from './browser.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +18,7 @@ import { APIService } from 'app/api.service';
     FormsModule,
     HttpModule
   ],
-  providers: [APIService],
+  providers: [APIService, BrowserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
