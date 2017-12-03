@@ -20,6 +20,7 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
     total: string;
     roubo: string;
     furto: string;
+    outros: string;
 
     horas_crimes: any;
 
@@ -29,12 +30,6 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit() {
-
-        this.api.getInfo().subscribe(info => {
-            this.total = this.formataNumero(info.total);
-            this.roubo = this.formataNumero(info.incidentes[0].roubo);
-            this.furto = this.formataNumero(info.incidentes[1].furto);
-        });
 
     }
 
@@ -48,6 +43,14 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
             };
 
             this.api.getBOs(pos, config.raio).subscribe(locations => {
+
+
+                console.log(locations);
+                this.total = locations.length;
+                this.furto = locations.filter(l => l.tipo == "furto").length;
+                this.roubo = locations.filter(l => l.tipo == "roubo").length;
+                this.outros = (parseInt(this.total) - parseInt(this.furto) - parseInt(this.roubo)).toString();
+
                 let horas = locations.map(o => o.hora);
                 horas = __.groupBy(horas, Math.floor);
 
@@ -56,8 +59,6 @@ export class CampoDireitaComponent implements OnInit, AfterViewInit {
                 for (var i in horas) {
                     _horas[i] = horas[i].length;
                 }
-
-                console.log(_horas);
 
                 this.horas_crimes = _horas;
 

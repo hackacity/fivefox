@@ -1,21 +1,37 @@
 <div id="campo-direita" class="mdl-card mdl-shadow--2dp">
-    <div>
-        <h4>Dados do Sistema</h4>
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#starks-panel" class="mdl-tabs__tab is-active">Gráficos</a>
+            <a href="#targaryens-panel" class="mdl-tabs__tab">Numéricos</a>
+        </div>
+
+        <div class="mdl-tabs__panel is-active" id="starks-panel">
+
+                <div id="top_x_div" style="width: 300px; height: 200px;"></div>
+        </div>
+        <div class="mdl-tabs__panel" id="targaryens-panel">
+                <div>
+                    <h4>Dados do Sistema</h4>
+                </div>
+                <div id="info">
+                    <div>
+                        <span class="valor mdl-typography--title">{{ total }}</span>
+                        <span class="tipo">Ocorrências</span>
+                    </div>
+                    <div>
+                        <span class="valor mdl-typography--title">{{ furto }}</span>
+                        <span class="tipo">Furto</span>
+                    </div>
+                    <div>
+                        <span class="valor mdl-typography--title">{{ roubo }}</span>
+                        <span class="tipo">Roubo</span>
+                    </div>
+                    <div>
+                        <span class="valor mdl-typography--title">{{ outros }}</span>
+                        <span class="tipo">Outros</span>
+                    </div>
+                </div>
+        </div>
     </div>
-    <div id="info">
-        <div>
-            <span class="valor mdl-typography--title">{{ total }}</span>
-            <span class="tipo">Ocorrências</span>
-        </div>
-        <div>
-            <span class="valor mdl-typography--title">{{ furto }}</span>
-            <span class="tipo">Furto</span>
-        </div>
-        <div>
-            <span class="valor mdl-typography--title">{{ roubo }}</span>
-            <span class="tipo">Roubo</span>
-        </div>
-    </div>
-    <hr />
-    <div id="top_x_div" style="width: 300px; height: 200px;"></div>
+
 </div>
