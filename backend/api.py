@@ -99,6 +99,68 @@ class TodoList(Resource):
         TODOS[todo_id] = {'task': args['task']}
         return TODOS[todo_id], 201
 
+class InfoTotal(Resource):
+    def get(self):
+        dado = {}
+        dado['total'] = es.search(index='bos', body={
+				        'size' : 0,
+				        'query': {
+				            'match_all' : {}
+				       }
+				   }
+				)['hits']['total']
+
+        dado['incidentes'] = []
+
+        dado['incidentes'].append({'roubo':  es.search(index='bos', body={"filter": 
+                {"match": 
+                    {"fact": "roubo"}
+                }
+            }, size=0
+        )['hits']['total']})
+
+        dado['incidentes'].append({'furto': es.search(index='bos', body={"filter": 
+                {"match": 
+                    {"fact": "furto"}
+                }
+            }, size=0
+        )['hits']['total']})
+
+        dado['incidentes'].append({'homicidio': es.search(index='bos', body={"filter": 
+                {"match": 
+                    {"fact": "homicidio"}
+                }
+            }, size=0
+        )['hits']['total']})
+
+        dado['incidentes'].append({'tentativa de homicidio': es.search(index='bos', body={"filter": 
+                {"match": 
+                    {"fact":{
+
+                        "query":"tentativa de homicidio",
+                    "operator" : "and"	
+                    }
+                    }
+                    
+                }
+            }, size=0
+        )['hits']['total']})
+
+        dado['incidentes'].append({"trafico de drogas": es.search(index='bos', body={"filter": 
+                {"match": 
+                    {"fact":{
+
+                        "query":"trafico de drogas",
+                    "operator" : "and"	
+                    }
+                    }
+                    
+                }
+            }, size=0
+        )['hits']['total']})
+
+        return dado
+
 class Incidentes(Resource):
     def get(self):
         return IncidentesOcorridos

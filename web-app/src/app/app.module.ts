@@ -1,3 +1,4 @@
+import { BrowserService } from './browser.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -5,18 +6,21 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { MapaComponent } from './mapa/mapa.component';
+import { APIService } from 'app/api.service';
+import { CampoDireitaComponent } from './campo-direita/campo-direita.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapaComponent
+    MapaComponent,
+    CampoDireitaComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [APIService, BrowserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,28 @@
+#campo-direita {
+    background: #ffffff;
+    border-radius: 3px;
+    margin: 10px;
+    padding: 10px;
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    top: 0px;
+    width: 300px;
+}
+
+#campo-direita #info {
+    display: flex;
+    flex-direction: row;
+    align-self: auto;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#campo-direita #info div {
+    display: flex;
+    flex-direction: column;
+}
+
+#campo-direita #info .valor {
+    padding: 5px 0;
+}

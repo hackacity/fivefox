@@ -1,0 +1,25 @@
+{
+    'roubo': {
+
+    },
+    'homicidio': {
+
+    }
+}
+
+{ 
+    'ocorrencias' : [
+        {
+            'bairro': 'vila coophamorena',
+            'ano': 2011, 
+            'latitude': -20.4665648,
+            'dia': '15',
+            'tipo': 'trafico de drogas', 
+            'longitude': -54.6031665,
+            'objeto': 'celular',
+            'hora': 17,
+            'weekday': 'sexta-feira',
+            'mes': 7
+        }, 
+}
+    
