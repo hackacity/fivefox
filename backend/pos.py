@@ -19,5 +19,5 @@ tageado = nltk.pos_tag(tokenizado)
 print('tagueado', tageado)
 
 
-tagger = nlpnet.POSTagger('\Users\mateu\AppData\Roaming\nltk_data', language='pt')
+tagger = nlpnet.POSTagger('C:/Users/mateu/AppData/Roaming/nltk_data', language='pt')
 tagger.tag(tokenizado)
