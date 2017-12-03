@@ -1,3 +1,5 @@
+import { BoxSelectComponente } from './box-select/box-select.componente';
+//import { BoxSelect } from './box-select/box-select';
 import { BrowserService } from './browser.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -9,11 +11,13 @@ import { MapaComponent } from './mapa/mapa.component';
 import { APIService } from 'app/api.service';
 import { CampoDireitaComponent } from './campo-direita/campo-direita.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     MapaComponent,
-    CampoDireitaComponent
+    CampoDireitaComponent,
+    BoxSelectComponente
   ],
   imports: [
     BrowserModule,

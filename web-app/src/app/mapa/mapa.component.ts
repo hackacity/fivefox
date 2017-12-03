@@ -14,10 +14,19 @@ export class MapaComponent implements OnInit {
 
     map: any = {};
 
+    originais: any[];
+    noMapa: any[];
+    markerCluster: any = {};
+
     constructor(
         private browserService: BrowserService,
         private api: APIService
-    ) { }
+    ) {
+        this.noMapa = [];
+        this.originais = [];
+        this.map = {};
+        this.markerCluster = {};
+    }
 
     ngOnInit() {
 
@@ -29,18 +38,20 @@ export class MapaComponent implements OnInit {
 
         this.setLocationOnMap();
 
-        
-        this.api.getIncidentes().subscribe(locations => this.setIncidentesOnMap(locations.incidentes));
+        // this.map.addListener('click', (e) => {
 
-        this.map.addListener('click', function(e) {
+        //     this.clearOverlays();
 
-            let marker = new google.maps.Marker({
-                position: e.latLng,
-                map: this.map
-            });
-            
-            this.map.setCenter(marker.getPosition());
-          });
+
+
+        //     let marker = new google.maps.Marker({
+        //         position: e.latLng,
+        //         map: this.map
+        //     });
+
+        //     this.map.setCenter(marker.getPosition());
+        // });
+
 
     }
 
@@ -54,28 +65,55 @@ export class MapaComponent implements OnInit {
             };
 
             this.map.setCenter(pos);
+
+            // get and set markers
+
+            this.api.getBOs(pos, 300).subscribe(locations => {
+                this.originais = locations;
+                this.setIncidentesOnMap(locations);
+            });
         });
 
     }
 
     setIncidentesOnMap(locations) {
+        console.log(locations);
 
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-
-        var markers = locations.map(function (location, i) {
-            return new google.maps.Marker({
+        var markers = [];
+        this.noMapa = [];
+        console.log('nMapa', this.noMapa);
+        for (var i = 0; i < locations.length; i++) {
+            let mark = new google.maps.Marker({
                 position: {
-                    lat: location.latitude,
-                    lng: location.longitude
+                    lat: locations[i].latitude,
+                    lng: locations[i].longitude
                 },
                 label: labels[i % labels.length]
             });
-        });
+            markers.push(mark);
 
-        var markerCluster = new MarkerClusterer(this.map, markers,
+            this.noMapa.push(mark);
+        }
+
+        this.markerCluster = new MarkerClusterer(this.map, this.noMapa,
             { imagePath: 'http://localhost:4200/assets/images/m' });
 
+
+    }
+
+    clearOverlays() {
+
+
+        for (var i = 0; i < this.noMapa.length; i++) {
+
+            this.noMapa[i].setMap(null);
+            this.noMapa[i].setVisible(false);
+            console.log('mapa ', this.noMapa[i])
+        }
+        this.noMapa = [];
+
+        this.markerCluster.setMap(null);
 
     }
 
