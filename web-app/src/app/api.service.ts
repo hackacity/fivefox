@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class APIService {
 
-    URI_BASE = "http://127.0.0.1:5000/";
+    URI_BASE = "http://172.50.5.140:5000/";
 
     constructor(private http : Http) { }
 
@@ -22,7 +22,7 @@ export class APIService {
                     .map(res => res.json())
                     .catch(error => Observable.throw(error.json().error || 'Server error'));
 
-    }
+    }   
 
 
 }
