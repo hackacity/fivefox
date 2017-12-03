@@ -16,7 +16,7 @@ export class APIService {
 
     getIncidentes(): Observable<any> {
 
-        let uri = this.URI_BASE + 'incidentes';
+        let uri = this.URI_BASE + 'info';
 
         return this.http
             .get(uri)

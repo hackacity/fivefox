@@ -29,7 +29,7 @@ export class MapaComponent implements OnInit {
         this.setLocationOnMap();
 
         
-        this.api.getIncidentes().subscribe(locations => this.setIncidentesOnMap(locations.ocorrencias));
+        this.api.getIncidentes().subscribe(locations => this.setIncidentesOnMap(locations.incidentes));
 
     }
 
