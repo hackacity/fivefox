@@ -1,0 +1,17 @@
+#campo-direita {
+    background: #ffffff;
+    border-radius: 3px;
+    margin: 10px;
+    padding: 10px;
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    top: 0px;
+    width: 350px;
+}
+
+#campo-direita #info {
+    display: flex;
+    flex-direction: row;
+    align-self: auto;
+}
