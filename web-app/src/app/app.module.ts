@@ -7,11 +7,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { MapaComponent } from './mapa/mapa.component';
 import { APIService } from 'app/api.service';
+import { CampoDireitaComponent } from './campo-direita/campo-direita.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapaComponent
+    MapaComponent,
+    CampoDireitaComponent
   ],
   imports: [
     BrowserModule,
