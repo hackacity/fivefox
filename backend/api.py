@@ -1,8 +1,12 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import reqparse, abort, Api, Resource
 
+import geopy.distance
+import es_sql
 from flask_cors import CORS
 from elasticsearch import Elasticsearch
+from datetime import datetime
+from datetime import timedelta
 es = Elasticsearch([{'host': '172.50.5.140', 'port': 9200}])
 
 app = Flask(__name__)
@@ -130,9 +134,60 @@ class Info(Resource):
             objetoDeRetorno.append(dado)
         return objetoDeRetorno
 
+class BOs(Resource):
+    def get(self):
+        latitude = request.args.get('lat', type = float)
+        longitude = request.args.get('long', type = float)
+        raio = request.args.get('raio', type = float)
+
+        now = datetime.now()
+        month_ago = (now - timedelta(days=30)).month
+        day_month_ago = (now - timedelta(days=30)).day
+        year_ago = 2011
+        #year_ago = (now - timedelta(days=30)).year
+        month = now.month
+        day = now.day
+        year = 2011
+        #year = now.year
+
+        c1 = (latitude, longitude)
+        res = es_sql.execute_sql('http://172.50.5.140:9200', '''SELECT * FROM bos WHERE "month"=''' + str(month_ago) + ''' AND "day">=''' + str(day_month_ago)+ ''' AND "year"=''' + str(year_ago) + ''' LIMIT 10000''')
+    
+        inside = []
+        for i in res['result']:
+            c2 = (i['latitude'], i['longitute'])
+            if geopy.distance.vincenty(c1, c2).km <= raio:
+                inside.append(i)
+
+        res = es_sql.execute_sql('http://172.50.5.140:9200', '''SELECT * FROM bos WHERE "month"=''' + str(month) + ''' AND "day"<=''' + str(day) + ''' AND "year"=''' + str(year) + ''' LIMIT 10000''')
+        for i in res['result']:
+            c2 = (i['latitude'], i['longitute'])
+            if geopy.distance.vincenty(c1, c2).km <= raio:
+                inside.append(i)
+
+        resultado = []
+        for i in inside:
+            dado = {
+                'bairro': i['neighborhood'],
+                'ano': i['year'], 
+                'latitude': i['latitude'],
+                'dia': i['day'],
+                'tipo': i['fact'], 
+                'longitude': i['longitute'],
+                'objeto': i['object'],
+                'hora': i['time'],
+                'diaDaSemana': i['weekday'],
+                'mes': i['month'],
+                'genero': i['gender'],
+                'idade': i['age']
+            }
+            resultado.append(dado)
+
+        return resultado
+
 api.add_resource(Info, '/info')
 api.add_resource(InfoTotal, '/info/total')
-
+api.add_resource(BOs, '/bo')
 
 if __name__ == '__main__':
     app.run(debug=True)
