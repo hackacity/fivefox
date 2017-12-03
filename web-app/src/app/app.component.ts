@@ -16,8 +16,6 @@ export class AppComponent implements AfterViewInit {
 
     ngAfterViewInit() {
 
-        this.service.getTest().subscribe(text => console.log(text));
-
     }
 
 

@@ -22,12 +22,14 @@ export class MapaComponent implements OnInit {
     ngOnInit() {
 
         this.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 3,
+            zoom: 14,
             center: { lat: -28.024, lng: 140.887 }
         });
 
         this.setLocationOnMap();
-        this.setIncidentesOnMap();
+
+        
+        this.api.getIncidentes().subscribe(locations => this.setIncidentesOnMap(locations.ocorrencias));
 
     }
 
@@ -45,18 +47,17 @@ export class MapaComponent implements OnInit {
 
     }
 
-    setIncidentesOnMap() {
-        let locations = this.api.getIncidentes();
-
-        console.log(locations);
-
+    setIncidentesOnMap(locations) {
 
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 
         var markers = locations.map(function (location, i) {
             return new google.maps.Marker({
-                position: location,
+                position: {
+                    lat: location.latitude,
+                    lng: location.longitude
+                },
                 label: labels[i % labels.length]
             });
         });
