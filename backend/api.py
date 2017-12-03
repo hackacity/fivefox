@@ -140,8 +140,6 @@ class BOs(Resource):
         longitude = request.args.get('long', type = float)
         raio = request.args.get('raio', type = float)
 
-        resultado = {}
-
         now = datetime.now()
         month_ago = (now - timedelta(days=30)).month
         day_month_ago = (now - timedelta(days=30)).day
@@ -153,7 +151,7 @@ class BOs(Resource):
         #year = now.year
 
         c1 = (latitude, longitude)
-        res = es_sql.execute_sql('http://172.50.5.140:9200', '''SELECT * FROM bos WHERE "month"=''' + str(month_ago) + ''' AND "day">=''' + str(day_month_ago)+ ''' AND "year"=''' + str(year_ago))
+        res = es_sql.execute_sql('http://172.50.5.140:9200', '''SELECT * FROM bos WHERE "month"=''' + str(month_ago) + ''' AND "day">=''' + str(day_month_ago)+ ''' AND "year"=''' + str(year_ago) + ''' LIMIT 10000''')
     
         inside = []
         for i in res['result']:
@@ -161,13 +159,29 @@ class BOs(Resource):
             if geopy.distance.vincenty(c1, c2).km <= raio:
                 inside.append(i)
 
-        res = es_sql.execute_sql('http://172.50.5.140:9200', '''SELECT * FROM bos WHERE "month"=''' + str(month) + ''' AND "day"<=''' + str(day) + ''' AND "year"=''' + str(year))
+        res = es_sql.execute_sql('http://172.50.5.140:9200', '''SELECT * FROM bos WHERE "month"=''' + str(month) + ''' AND "day"<=''' + str(day) + ''' AND "year"=''' + str(year) + ''' LIMIT 10000''')
         for i in res['result']:
             c2 = (i['latitude'], i['longitute'])
             if geopy.distance.vincenty(c1, c2).km <= raio:
                 inside.append(i)
 
-        resultado['ocorrencias'] = inside
+        resultado = []
+        for i in inside:
+            dado = {
+                'bairro': i['neighborhood'],
+                'ano': i['year'], 
+                'latitude': i['latitude'],
+                'dia': i['day'],
+                'tipo': i['fact'], 
+                'longitude': i['longitute'],
+                'objeto': i['object'],
+                'hora': i['time'],
+                'diaDaSemana': i['weekday'],
+                'mes': i['month'],
+                'genero': i['gender'],
+                'idade': i['age']
+            }
+            resultado.append(dado)
 
         return resultado
 
