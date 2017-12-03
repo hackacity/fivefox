@@ -4,7 +4,7 @@
     margin: 10px;
     padding: 10px;
     position: absolute;
-    right: 0px;
+    left: 0px;
     text-align: center;
     top: 0px;
     width: 300px;
@@ -21,4 +21,8 @@
 #campo-direita #info div {
     display: flex;
     flex-direction: column;
+}
+
+#campo-direita #info .valor {
+    padding: 5px 0;
 }
