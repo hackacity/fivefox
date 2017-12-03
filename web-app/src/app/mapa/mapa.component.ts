@@ -1,6 +1,7 @@
 import { BrowserService } from './../browser.service';
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'app/api.service';
+import * as __ from 'lodash';
 
 declare var google;
 declare var MarkerClusterer;
@@ -68,9 +69,23 @@ export class MapaComponent implements OnInit {
 
             // get and set markers
 
-            this.api.getBOs(pos, 300).subscribe(locations => {
+            this.api.getBOs(pos, 3).subscribe(locations => {
                 this.originais = locations;
                 this.setIncidentesOnMap(locations);
+
+
+                // minerando
+
+                let horas = this.originais.map(o => o.hora);
+                horas = __.groupBy(horas, Math.floor);
+
+                let _horas = [];
+
+                for(var i in horas) {
+                    _horas[i] = horas[i].length;
+                }
+
+                console.log(_horas);
             });
         });
 
